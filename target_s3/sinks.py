@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from singer_sdk.sinks import BatchSink
-import boto3
 from smart_open import open
 from datetime import datetime
 import uuid
@@ -37,13 +36,11 @@ class TargetS3Sink(BatchSink):
         # ------
         # client.upload(context["file_path"])  # Upload file
         # Path(context["file_path"]).unlink()  # Delete local copy
-        client = boto3.client("s3")
 
         records = context["records"]
         data = "\n".join([json.dumps(record, default=str) for record in records])
         with open(
             self.get_url(),
-            "wb",
-            transport_params={"client": client},
+            "wb"
         ) as fout:
             fout.write(str.encode(data))
