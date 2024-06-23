@@ -12,7 +12,6 @@ import json
 
 class TargetS3Sink(BatchSink):
     """target-s3 target sink class."""
-    client = boto3.client("s3")
 
     @property
     def max_size(self):
@@ -38,12 +37,13 @@ class TargetS3Sink(BatchSink):
         # ------
         # client.upload(context["file_path"])  # Upload file
         # Path(context["file_path"]).unlink()  # Delete local copy
+        client = boto3.client("s3")
 
         records = context["records"]
         data = "\n".join([json.dumps(record, default=str) for record in records])
         with open(
             self.get_url(),
             "wb",
-            transport_params={"client": self.client},
+            transport_params={"client": client},
         ) as fout:
             fout.write(str.encode(data))
