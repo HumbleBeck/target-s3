@@ -1,0 +1,11 @@
+namespace: target_s3
+name: target-s3
+variant: HumbleBeck
+pip_url: -e .
+capabilities:
+- about
+- batch
+settings:
+- name: bucket_name
+- name: prefix
+- name: max_records
