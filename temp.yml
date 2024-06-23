@@ -1,7 +1,7 @@
 namespace: target_s3
 name: target-s3
 variant: HumbleBeck
-pip_url: -e .
+pip_url: git+https://github.com/HumbleBeck/target-s3.git
 capabilities:
 - about
 - batch
